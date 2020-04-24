@@ -1,4 +1,3 @@
-window.load = function(){
     let navList = document.querySelector(".nav-list");
     let navItems = document.querySelector(".nav-items");
     let Add = document.querySelector(".Add");
@@ -107,4 +106,3 @@ window.load = function(){
       }
     });
 
-}
