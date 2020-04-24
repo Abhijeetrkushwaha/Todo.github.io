@@ -59,12 +59,14 @@
     function myTodo(todo) {
       let text = `
       <li class="nav-items">
-                    <p class="item">${todo.value}</p>
+                    
                     <div class="complete-remove">
-                     <i class="fa fa-circle-thin com"></i>
-                     <button class="delete-btn">X</button>
+                     <i class="fa fa-circle-thin com" job="complete"></i>
+                    <p class="item">${todo.value}</p> 
                     </div>
+                    <button class="delete-btn">X</button>
                 </li>
+      
             `;
       const position = "beforeend";
       navList.insertAdjacentHTML(position, text);
@@ -80,7 +82,7 @@
 
     navList.addEventListener("click", (e) => {
       if (e.target.classList.contains("delete-btn")) {
-        let li = e.target.parentElement.parentElement;
+        let li = e.target.parentElement;
         navList.removeChild(li);
       }
     });
@@ -95,7 +97,10 @@
 
     navList.addEventListener("click", (e) => {
       element = e.target;
-      completeTodo(element);
+      const elementJob = element.attributes.job.value;
+      if (elementJob == "complete") {
+        completeTodo(element);
+      }
     });
 
     refresh.addEventListener("click", () => {
