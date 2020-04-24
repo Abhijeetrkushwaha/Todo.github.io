@@ -43,19 +43,19 @@ window.load = function(){
       "December",
     ];
     time.innerHTML = `${days[day]},${months[month]} ${date}`;
-    if (hour >= 0 && hour <= 6) {
-      header.style.background = "url(./images/nightscene.jpg) center no-repeat";
-      time.style.color = "white";
-    } else if (hour >= 7 && hour <= 12) {
-      header.style.background =
-        "url(./images/morningscene.jpg) center no-repeat";
-    } else if (hour >= 13 && hour <= 18) {
-      header.style.background =
-        "url(./images/afternoonscene.jpg) center no-repeat";
-    } else {
-      header.style.background = "url(./images/nightscene.jpg) center no-repeat";
-      time.style.color = "white";
-    }
+    // if (hour >= 0 && hour <= 6) {
+    //   header.style.background = "url(./images/nightscene.jpg) center no-repeat";
+    //   time.style.color = "white";
+    // } else if (hour >= 7 && hour <= 12) {
+    //   header.style.background =
+    //     "url(./images/morningscene.jpg) center no-repeat";
+    // } else if (hour >= 13 && hour <= 18) {
+    //   header.style.background =
+    //     "url(./images/afternoonscene.jpg) center no-repeat";
+    // } else {
+    //   header.style.background = "url(./images/nightscene.jpg) center no-repeat";
+    //   time.style.color = "white";
+    // }
 
     function myTodo(todo) {
       let text = `
