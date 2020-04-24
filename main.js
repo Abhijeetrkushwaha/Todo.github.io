@@ -90,7 +90,7 @@
     function completeTodo(element) {
       element.classList.toggle(check);
       element.classList.toggle(unCheck);
-      element.parentElement.parentElement.children[0].classList.toggle(
+      element.parentElement.parentElement.children[0].children[1].classList.toggle(
         lineThrough
       );
     }
