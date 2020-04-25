@@ -45,26 +45,42 @@ time.innerHTML = `${days[day]},${months[month]} ${date}`;
 if (hour >= 0 && hour <= 6) {
   header.style.background = "url(./images/nightscene.jpg) center no-repeat";
   time.style.color = "white";
-} else if (hour >= 7 && hour <= 12) {
+} else if (hour >= 7 && hour <= 11) {
   header.style.background = "url(./images/morningscene.jpg) center no-repeat";
-} else if (hour >= 13 && hour <= 18) {
+} else if (hour >= 12 && hour <= 17) {
   header.style.background = "url(./images/afternoonscene.jpg) center no-repeat";
 } else {
   header.style.background = "url(./images/nightscene.jpg) center no-repeat";
   time.style.color = "white";
 }
+
+// Retrieving data from local storage
+let list;
+let data = localStorage.getItem("TODO");
+if (data) {
+  list = JSON.parse(data);
+  loadList(list);
+} else {
+  list = [];
+}
+function loadList(array) {
+  array.forEach(function (item,i) {
+    myTodo(item);
+    // console.log(item[i]);
+    
+    // console.log(item.todo);
+  });
+}
 // Adding items in todo
 function myTodo(todo) {
   let text = `
-      <li class="nav-items">
-                    
+      <li class="nav-items">  
                     <div class="complete-remove">
                      <i class="fa fa-circle-thin com" job="complete"></i>
-                    <p class="item">${todo.value}</p> 
+                    <p class="item">${todo}</p> 
                     </div>
                     <button class="delete-btn">X</button>
                 </li>
-      
             `;
   const position = "beforeend";
   navList.insertAdjacentHTML(position, text);
@@ -72,9 +88,12 @@ function myTodo(todo) {
 
 Add.addEventListener("click", (e) => {
   e.preventDefault();
-  if (inputValue.value) {
-    myTodo(inputValue);
+  aaa= inputValue.value
+  if (aaa) {
+    myTodo(aaa);
+    list.push(aaa);
   }
+  localStorage.setItem("TODO", JSON.stringify(list));
   inputValue.value = "";
 });
 // removing particular todo items
@@ -82,6 +101,16 @@ navList.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-btn")) {
     let li = e.target.parentElement;
     navList.removeChild(li);
+    let textContent = li.children[0].children[1].textContent;
+    
+    //  console.log(list.indexOf(rr));
+    let indexNo = list.indexOf(textContent);
+    //  console.log(li.children[0].children[1].textContent);
+    list.splice(indexNo,1);
+    console.log(list);
+    localStorage.setItem("TODO", JSON.stringify(list));
+    
+    
   }
 });
 // Adding and Removing task done icon
@@ -100,11 +129,12 @@ navList.addEventListener("click", (e) => {
     completeTodo(element);
   }
 });
+
 // Removing all items from Todo
 refresh.addEventListener("click", () => {
-  if (confirm("Are you sure you want to remove all your task!")) {
-    while (navList.firstChild) {
-      navList.removeChild(navList.firstChild);
+    if (confirm("Are you sure you want to remove all your task!")) {
+      localStorage.clear();
+      location.reload();
     }
-  }
 });
+
