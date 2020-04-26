@@ -64,7 +64,7 @@ if (data) {
   list = [];
 }
 function loadList(array) {
-  array.forEach(function (item,i) {
+  array.forEach(function (item) {
     myTodo(item);
     // console.log(item[i]);
     
@@ -88,10 +88,10 @@ function myTodo(todo) {
 
 Add.addEventListener("click", (e) => {
   e.preventDefault();
-  aaa= inputValue.value
-  if (aaa) {
-    myTodo(aaa);
-    list.push(aaa);
+  let actualValue = inputValue.value
+  if (actualValue && inputValue.value.trim().length > 0) {
+    myTodo(actualValue);
+    list.push(actualValue);
   }
   localStorage.setItem("TODO", JSON.stringify(list));
   inputValue.value = "";
