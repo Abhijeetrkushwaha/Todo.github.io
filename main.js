@@ -8,6 +8,7 @@ let deleteBtn = document.querySelector(".delete-btn");
 let refresh = document.querySelector(".refresh");
 let time = document.querySelector(".date");
 let header = document.querySelector(".header");
+let taskNo = document.querySelector(".task-no");
 const check = "fa-check-circle";
 const unCheck = "fa-circle-thin";
 const lineThrough = "light";
@@ -60,9 +61,12 @@ let data = localStorage.getItem("TODO");
 if (data) {
   list = JSON.parse(data);
   loadList(list);
+  taskNo.textContent = list.length;
 } else {
   list = [];
+  taskNo.textContent = list.length;
 }
+
 function loadList(array) {
   array.forEach(function (item) {
     myTodo(item);
@@ -95,24 +99,28 @@ Add.addEventListener("click", (e) => {
   }
   localStorage.setItem("TODO", JSON.stringify(list));
   inputValue.value = "";
+  taskNo.textContent = list.length;
+ 
+  
+  
 });
 // removing particular todo items
-navList.addEventListener("click", (e) => {
-  if (e.target.classList.contains("delete-btn")) {
-    let li = e.target.parentElement;
-    navList.removeChild(li);
-    let textContent = li.children[0].children[1].textContent;
+// navList.addEventListener("click", (e) => {
+//   if (e.target.classList.contains("delete-btn")) {
+//     let li = e.target.parentElement;
+//     navList.removeChild(li);
+//     let textContent = li.children[0].children[1].textContent;
     
-    //  console.log(list.indexOf(rr));
-    let indexNo = list.indexOf(textContent);
-    //  console.log(li.children[0].children[1].textContent);
-    list.splice(indexNo,1);
-    console.log(list);
-    localStorage.setItem("TODO", JSON.stringify(list));
+//     //  console.log(list.indexOf(rr));
+//     let indexNo = list.indexOf(textContent);
+//     //  console.log(li.children[0].children[1].textContent);
+//     list.splice(indexNo,1);
+//     localStorage.setItem("TODO", JSON.stringify(list));
+//     taskNo.textContent = list.length;
     
     
-  }
-});
+//   }
+// });
 // Adding and Removing task done icon
 function completeTodo(element) {
   element.classList.toggle(check);
@@ -124,17 +132,34 @@ function completeTodo(element) {
 
 navList.addEventListener("click", (e) => {
   element = e.target;
-  const elementJob = element.attributes.job.value;
-  if (elementJob == "complete") {
+  // const elementJob = element.attributes.job.value;
+  // element.attributes.job.value == "complete";
+  
+  if (element.classList.contains("com")) {
     completeTodo(element);
   }
+    else if (e.target.classList.contains("delete-btn")) {
+      let li = e.target.parentElement;
+      navList.removeChild(li);
+      let textContent = li.children[0].children[1].textContent;
+
+      //  console.log(list.indexOf(rr));
+      let indexNo = list.indexOf(textContent);
+      //  console.log(li.children[0].children[1].textContent);
+      list.splice(indexNo, 1);
+      localStorage.setItem("TODO", JSON.stringify(list));
+      taskNo.textContent = list.length;
+    }
 });
 
 // Removing all items from Todo
 refresh.addEventListener("click", () => {
-    if (confirm("Are you sure you want to remove all your task!")) {
+   if(list.length>0){
+      if (confirm("Are you sure you want to remove all your task!")) {
       localStorage.clear();
       location.reload();
     }
+   }
 });
+
 
