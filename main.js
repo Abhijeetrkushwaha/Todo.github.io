@@ -75,7 +75,7 @@ function loadList(array) {
     // console.log(item.todo);
   });
 }
-// Adding items in todo
+// function for Adding items in todo
 function myTodo(todo) {
   let text = `
       <li class="nav-items">  
@@ -89,7 +89,7 @@ function myTodo(todo) {
   const position = "beforeend";
   navList.insertAdjacentHTML(position, text);
 }
-
+// myTodo function will get called and data will added on list array
 Add.addEventListener("click", (e) => {
   e.preventDefault();
   let actualValue = inputValue.value
